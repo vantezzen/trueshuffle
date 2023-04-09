@@ -1,8 +1,5 @@
-import useSessionToken from "@/lib/hooks/useSessionToken";
-import useSpotifyData from "@/lib/hooks/useSpotifyData";
-import { Card, Input, Loading, Text } from "@geist-ui/core";
+import { Text } from "@geist-ui/core";
 import React from "react";
-import { usePlayerState } from "./player/playerState";
 import Player from "./player";
 import PlaylistSelector from "./PlaylistSelector";
 import ShuffleTypeSelector from "./ShuffleTypeSelector";

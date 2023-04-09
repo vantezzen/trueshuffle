@@ -1,5 +1,3 @@
-import SpotifyWebApi from "spotify-web-api-node";
-import { usePlayerState } from "../../components/app/player/playerState";
 import debugging from "debug";
 const debug = debugging("app:player:WebPlayback");
 

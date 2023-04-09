@@ -1,8 +1,7 @@
-import { Button, Text } from "@geist-ui/core";
+import { Text } from "@geist-ui/core";
 import React from "react";
 import MutedText from "../MutedText";
 import Balancer from "react-wrap-balancer";
-import Link from "next/link";
 import GetStartedButton from "./GetStartedButton";
 
 function Hero() {

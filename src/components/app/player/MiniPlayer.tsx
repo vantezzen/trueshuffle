@@ -1,4 +1,4 @@
-import { Card, Loading, Progress } from "@geist-ui/core";
+import { Card, Progress } from "@geist-ui/core";
 import React from "react";
 import { usePlayerState } from "./playerState";
 import MutedText from "@/components/MutedText";
