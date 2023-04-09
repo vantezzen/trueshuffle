@@ -63,10 +63,17 @@ function Features() {
             Fully open-source
           </Text>
           <MutedText>
-            TrueShuffle is open-source on GitHub, which means you can inspect
-            the code and even contribute to its development. Join our community
-            of developers and music lovers and help us make TrueShuffle even
-            better.
+            TrueShuffle is open-source
+            <a
+              href="https://github.com/vantezzen/trueshuffle"
+              target="_blank"
+              rel="noreferrer"
+            >
+              on GitHub
+            </a>
+            , which means you can inspect the code and even contribute to its
+            development. Join our community of developers and music lovers and
+            help us make TrueShuffle even better.
           </MutedText>
         </Card>
       </div>
