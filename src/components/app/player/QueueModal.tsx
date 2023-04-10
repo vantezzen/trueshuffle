@@ -21,6 +21,11 @@ function QueueModal() {
       <Modal visible={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <Modal.Title>Queue</Modal.Title>
         <Modal.Content>
+          {queue?.length === 0 && (
+            <MutedText className="text-center">
+              Queue is empty. Select a playlist to shuffle tracks
+            </MutedText>
+          )}
           <ul className="mt-6">
             {queue?.map((track) => (
               <li

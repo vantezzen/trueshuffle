@@ -63,7 +63,7 @@ function Features() {
             Fully open-source
           </Text>
           <MutedText>
-            TrueShuffle is open-source
+            TrueShuffle is open-source{" "}
             <a
               href="https://github.com/vantezzen/trueshuffle"
               target="_blank"

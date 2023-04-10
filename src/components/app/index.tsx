@@ -5,6 +5,7 @@ import PlaylistSelector from "./PlaylistSelector";
 import ShuffleTypeSelector from "./ShuffleTypeSelector";
 import MutedText from "../MutedText";
 import FirstLoadInfoModal from "./FirstLoadInfoModal";
+import PoweredBy from "./PoweredBy";
 
 function MainApp() {
   return (
@@ -19,6 +20,7 @@ function MainApp() {
       </div>
       <ShuffleTypeSelector />
       <PlaylistSelector />
+      <PoweredBy />
       <Player />
       <FirstLoadInfoModal />
     </div>
