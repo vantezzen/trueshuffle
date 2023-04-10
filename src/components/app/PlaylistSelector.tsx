@@ -1,23 +1,30 @@
 import useSpotifyData from "@/lib/hooks/useSpotifyData";
-import { Loading, Card, Input, Text } from "@geist-ui/core";
+import { Loading, Card, Input, Text, Badge } from "@geist-ui/core";
 import React from "react";
-import { usePlayerState } from "./player/playerState";
+import { LoadingState, usePlayerState } from "@/lib/player/playerState";
+import { useDebounce } from "use-debounce";
+import useSpotifyUser from "@/lib/hooks/useSpotifyUser";
 
 function PlaylistSelector() {
-  const setPlaylist = usePlayerState((state) => state.setPlaylist);
+  const player = usePlayerState((state) => state.player);
+  const loadingState = usePlayerState((state) => state.loadingState);
+
   const playlists = useSpotifyData(
     (spotify) => spotify.getUserPlaylists(),
     (data) => data.items
   );
+  const spotifyUser = useSpotifyUser();
   const [searchQuery, setSearchQuery] = React.useState("");
-  const isFetching = usePlayerState((state) => state.isFetching);
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
 
   const searchedPlaylists = useSpotifyData(
-    (spotify) => spotify.searchPlaylists(searchQuery),
+    (spotify) => {
+      return spotify.searchPlaylists(debouncedSearchQuery);
+    },
     (data) => data.playlists?.items,
     {
-      dependencies: [searchQuery],
-      skip: !searchQuery,
+      dependencies: [debouncedSearchQuery],
+      skip: !debouncedSearchQuery,
     }
   );
 
@@ -25,7 +32,7 @@ function PlaylistSelector() {
 
   return (
     <div className="relative">
-      {isFetching && (
+      {loadingState !== LoadingState.notLoading && (
         <div className="absolute top-0 left-0 w-full h-full bg-zinc-100 bg-opacity-50 p-12 flex flex-col items-center">
           <Loading height="auto" />
           <Text className="mt-6">Loading...</Text>
@@ -42,15 +49,24 @@ function PlaylistSelector() {
 
       {playlists === null && <Loading />}
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         {filteredPlaylists?.map((playlist) => (
           <button
             key={playlist.id}
             className="text-left"
-            onClick={() => setPlaylist(playlist)}
+            onClick={() => player?.handlePlaylistSelect(playlist)}
           >
             <Card>
-              <Text b>{playlist.name}</Text>
+              <div className="flex gap-4">
+                <Text b>{playlist.name}</Text>
+                {playlist.owner.id !== spotifyUser?.id && (
+                  <Badge>
+                    <span className="text-xs font-medium px-2">
+                      by {playlist.owner.display_name}
+                    </span>
+                  </Badge>
+                )}
+              </div>
             </Card>
           </button>
         ))}

@@ -3,7 +3,7 @@ import useSpotifyData from "@/lib/hooks/useSpotifyData";
 import { Loading, Modal } from "@geist-ui/core";
 import { Speaker } from "@geist-ui/icons";
 import React, { useEffect } from "react";
-import { usePlayerState } from "./playerState";
+import { usePlayerState } from "../../../lib/player/playerState";
 
 function DeviceSelector() {
   const [highRefreshRate, setHighRefreshRate] = React.useState(true);

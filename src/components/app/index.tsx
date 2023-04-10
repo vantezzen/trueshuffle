@@ -4,6 +4,7 @@ import Player from "./player";
 import PlaylistSelector from "./PlaylistSelector";
 import ShuffleTypeSelector from "./ShuffleTypeSelector";
 import MutedText from "../MutedText";
+import FirstLoadInfoModal from "./FirstLoadInfoModal";
 
 function MainApp() {
   return (
@@ -19,6 +20,7 @@ function MainApp() {
       <ShuffleTypeSelector />
       <PlaylistSelector />
       <Player />
+      <FirstLoadInfoModal />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { Select, Text } from "@geist-ui/core";
 import React from "react";
-import { ShuffleType, usePlayerState } from "./player/playerState";
+import { ShuffleType, usePlayerState } from "../../lib/player/playerState";
 import MutedText from "../MutedText";
 
 function ShuffleTypeSelector() {

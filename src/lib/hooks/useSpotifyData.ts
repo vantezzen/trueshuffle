@@ -55,6 +55,12 @@ export default function useSpotifyData<ReturnType, ResponseDataType>(
   }, [token, ...dependencies, skip]);
 
   useEffect(() => {
+    if (!skip && data && token) {
+      updateData();
+    }
+  }, [...dependencies, skip]);
+
+  useEffect(() => {
     if (options?.updateFrequency && token && !skip) {
       const interval = setInterval(updateData, options.updateFrequency);
       return () => clearInterval(interval);

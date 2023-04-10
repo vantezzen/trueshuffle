@@ -1,24 +1,29 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import SpotifyPlayer from "../../../lib/player/SpotifyPlayer";
+import SpotifyPlayer from "./SpotifyPlayer";
 
 export enum ShuffleType {
   trueRandom = "trueRandom",
   notRecentlyPlayed = "notRecentlyPlayed",
 }
 
+export enum LoadingState {
+  loadingTracks = "loadingTracks",
+  loadingOtherData = "loadingOtherData",
+  playing = "playing",
+  notLoading = "notLoading",
+}
+
 export interface PlayerState {
-  needsToRefetch: boolean;
-  isFetching: boolean;
   playlist: SpotifyApi.PlaylistObjectSimplified | null;
   tracks: SpotifyApi.PlaylistTrackObject[];
   queue: SpotifyApi.PlaylistTrackObject[];
   player: SpotifyPlayer | null;
   shuffleType: ShuffleType;
+  loadingState: LoadingState;
+  hasCompletedFirstLoad: boolean;
 
-  setPlaylist: (playlist: SpotifyApi.PlaylistObjectSimplified) => void;
   setTracks: (tracks: SpotifyApi.PlaylistTrackObject[]) => void;
-  setNeedsToRefetch: (needsToRefetch: boolean) => void;
   setPlayer: (player: SpotifyPlayer) => void;
   setShuffleType: (shuffleType: ShuffleType) => void;
 }
@@ -26,17 +31,15 @@ export interface PlayerState {
 export const usePlayerState = create<PlayerState>()(
   devtools(
     (set) => ({
-      needsToRefetch: false,
-      isFetching: false,
       playlist: null,
       tracks: [],
       queue: [],
       player: null,
       shuffleType: ShuffleType.trueRandom,
+      loadingState: LoadingState.notLoading,
+      hasCompletedFirstLoad: false,
 
-      setPlaylist: (playlist) => set({ playlist, needsToRefetch: true }),
       setTracks: (tracks) => set({ tracks }),
-      setNeedsToRefetch: (needsToRefetch) => set({ needsToRefetch }),
       setPlayer: (player) => set({ player }),
       setShuffleType: (shuffleType) => set({ shuffleType }),
     }),

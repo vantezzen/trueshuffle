@@ -5,7 +5,7 @@ const debug = debugging("app:player:NotRecentlyPlayedShuffleProvider");
 
 const RECENTLY_PLAYED_TRACKS_PAGES = 3;
 
-type TrackWithAmountPlayed = SpotifyApi.PlaylistTrackObject & {
+export type TrackWithAmountPlayed = SpotifyApi.PlaylistTrackObject & {
   amountPlayed: number;
 };
 
