@@ -24,7 +24,6 @@ export default class PlaylistLoader {
     }
 
     debug("Done loading tracks in playlist", playlist.name);
-    usePlayerState.setState({ needsToRefetch: false });
   }
 
   private async loadPlaylistPage(
