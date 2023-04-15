@@ -15,10 +15,12 @@ type SpotifyDataHookOptions = {
   dependencies: any[];
   skip: boolean;
   updateFrequency?: number;
+  clearOnUpdate?: boolean;
 };
 const defaultOptions: SpotifyDataHookOptions = {
   dependencies: [],
   skip: false,
+  clearOnUpdate: false,
 };
 
 export default function useSpotifyData<ReturnType, ResponseDataType>(
@@ -33,7 +35,7 @@ export default function useSpotifyData<ReturnType, ResponseDataType>(
   const setNeedsReauth = useAuthGateState((state) => state.setNeedsReauth);
 
   const updateData = () => {
-    setData(undefined);
+    if (options?.clearOnUpdate) setData(undefined);
     callback(spotify)
       .then((data) => {
         setData(

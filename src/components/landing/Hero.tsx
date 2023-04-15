@@ -3,6 +3,7 @@ import React from "react";
 import MutedText from "../MutedText";
 import Balancer from "react-wrap-balancer";
 import GetStartedButton from "./GetStartedButton";
+import Link from "next/link";
 
 function Hero() {
   return (
@@ -24,6 +25,9 @@ function Hero() {
       <MutedText className="text-xs text-zinc-300">
         We don't store any of your Spotify data and will never modify your
         playlists!
+        <br />
+        Learn more about the connection to your Spotify account{" "}
+        <Link href="/connection">here</Link>.
       </MutedText>
     </div>
   );

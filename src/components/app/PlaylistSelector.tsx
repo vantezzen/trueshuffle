@@ -25,6 +25,7 @@ function PlaylistSelector() {
     {
       dependencies: [debouncedSearchQuery],
       skip: !debouncedSearchQuery,
+      clearOnUpdate: true,
     }
   );
 
