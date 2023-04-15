@@ -1,6 +1,6 @@
 import MutedText from "@/components/MutedText";
 import { usePlayerState } from "@/lib/player/playerState";
-import { Modal } from "@geist-ui/core";
+import { Badge, Modal } from "@geist-ui/core";
 import { List } from "@geist-ui/icons";
 import React from "react";
 import { TrackWithAmountPlayed } from "@/lib/player/shuffleProviders/NotRecentlyPlayedShuffleProvider";
@@ -32,17 +32,19 @@ function QueueModal() {
                 key={track.track?.id}
                 className="flex justify-center mb-3 flex-col"
               >
-                <b>{track.track?.name}</b>
+                <b>
+                  {track.track?.name}{" "}
+                  {(track as TrackWithAmountPlayed).amountPlayed ? (
+                    <Badge scale={0.5} className="ml-2">
+                      Played{" "}
+                      <b>{(track as TrackWithAmountPlayed).amountPlayed}x</b>{" "}
+                      recently
+                    </Badge>
+                  ) : null}
+                </b>
                 <MutedText>
                   {track.track?.artists.map((artist) => artist.name).join(", ")}
                 </MutedText>
-                {(track as TrackWithAmountPlayed).amountPlayed ? (
-                  <MutedText className="text-zinc-300">
-                    Played{" "}
-                    <b>{(track as TrackWithAmountPlayed).amountPlayed}x</b>{" "}
-                    recently
-                  </MutedText>
-                ) : null}
               </li>
             ))}
           </ul>

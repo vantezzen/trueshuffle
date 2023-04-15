@@ -63,11 +63,12 @@ export default class NotRecentlyPlayedShuffleProvider
   }
 
   private async loadRecentlyPlayedTracks() {
+    let nextPage: number | undefined = undefined;
     for (let page = 0; page < RECENTLY_PLAYED_TRACKS_PAGES; page++) {
       const recentlyPlayedTracks = await this.spotify.getMyRecentlyPlayedTracks(
         {
           limit: 50,
-          after: page * 50,
+          after: nextPage,
         }
       );
 
@@ -75,6 +76,13 @@ export default class NotRecentlyPlayedShuffleProvider
         ...this.recentlyPlayedTracks,
         ...recentlyPlayedTracks.body.items.map((item) => item.track),
       ];
+
+      if (recentlyPlayedTracks.body.next) {
+        nextPage = recentlyPlayedTracks.body.cursors
+          .before as unknown as number;
+      } else {
+        break;
+      }
     }
 
     debug("Got recently played tracks", this.recentlyPlayedTracks);
