@@ -24,6 +24,7 @@ function DeviceSelector() {
   }, []);
 
   const hasActiveDevice = devices?.some((device) => device.is_active);
+  console.log(devices);
 
   return (
     <>
@@ -37,9 +38,11 @@ function DeviceSelector() {
         }
       >
         <Badge.Anchor>
-          <Badge type="error" scale={0.5}>
-            <AlertTriangle size={10} strokeWidth={3} />
-          </Badge>
+          {hasActiveDevice ? null : (
+            <Badge type="error" scale={0.5}>
+              <AlertTriangle size={10} strokeWidth={3} />
+            </Badge>
+          )}
           <Speaker size={20} strokeWidth={2} />
         </Badge.Anchor>
       </button>
