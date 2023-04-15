@@ -36,13 +36,13 @@ function QueueModal() {
                 <MutedText>
                   {track.track?.artists.map((artist) => artist.name).join(", ")}
                 </MutedText>
-                {(track as TrackWithAmountPlayed).amountPlayed && (
+                {(track as TrackWithAmountPlayed).amountPlayed ? (
                   <MutedText className="text-zinc-300">
                     Played{" "}
                     <b>{(track as TrackWithAmountPlayed).amountPlayed}x</b>{" "}
                     recently
                   </MutedText>
-                )}
+                ) : null}
               </li>
             ))}
           </ul>

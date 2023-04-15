@@ -9,13 +9,13 @@ function AuthGate({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      signIn();
+      signIn("spotify");
     }
   }, [status]);
 
   useEffect(() => {
     if (needsReauth) {
-      signOut().then(() => signIn());
+      signOut().then(() => signIn("spotify"));
     }
   }, [needsReauth]);
 

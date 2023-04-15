@@ -1,4 +1,4 @@
-import { Text } from "@geist-ui/core";
+import { Spacer, Text } from "@geist-ui/core";
 import React from "react";
 import MutedText from "../MutedText";
 import Balancer from "react-wrap-balancer";
@@ -18,6 +18,13 @@ function Hero() {
       </MutedText>
 
       <GetStartedButton />
+
+      <Spacer />
+
+      <MutedText className="text-xs text-zinc-300">
+        We don't store any of your Spotify data and will never modify your
+        playlists!
+      </MutedText>
     </div>
   );
 }

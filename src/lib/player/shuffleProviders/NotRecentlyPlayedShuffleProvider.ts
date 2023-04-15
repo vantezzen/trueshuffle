@@ -3,7 +3,7 @@ import { ShuffleProvider } from "./ShuffleProvider";
 import debugging from "debug";
 const debug = debugging("app:player:NotRecentlyPlayedShuffleProvider");
 
-const RECENTLY_PLAYED_TRACKS_PAGES = 3;
+export const RECENTLY_PLAYED_TRACKS_PAGES = 5;
 
 export type TrackWithAmountPlayed = SpotifyApi.PlaylistTrackObject & {
   amountPlayed: number;

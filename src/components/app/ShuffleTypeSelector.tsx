@@ -2,6 +2,7 @@ import { Select, Text } from "@geist-ui/core";
 import React from "react";
 import { ShuffleType, usePlayerState } from "../../lib/player/playerState";
 import MutedText from "../MutedText";
+import { RECENTLY_PLAYED_TRACKS_PAGES } from "@/lib/player/shuffleProviders/NotRecentlyPlayedShuffleProvider";
 
 function ShuffleTypeSelector() {
   const shuffleType = usePlayerState((state) => state.shuffleType);
@@ -40,7 +41,8 @@ function ShuffleTypeSelector() {
           <>
             <Text b>Not Recently Played</Text> will shuffle the playlist
             randomly, but with a bias of playing songs last that were played
-            recently on your account. This will use your last 150 played songs.
+            recently on your account. This will use your last{" "}
+            {RECENTLY_PLAYED_TRACKS_PAGES * 50} played songs.
             <br />
             Recently played songs may still be played again, but the probability
             is lower.

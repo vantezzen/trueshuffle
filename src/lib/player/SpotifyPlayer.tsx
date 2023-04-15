@@ -92,6 +92,7 @@ export default class SpotifyPlayer {
       ),
       type: "error",
     });
+    this.setLoadingState(LoadingState.notLoading);
   }
 
   private setLoadingState(loadingState: LoadingState) {

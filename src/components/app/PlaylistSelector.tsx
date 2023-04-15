@@ -47,7 +47,7 @@ function PlaylistSelector() {
         placeholder="Search"
       />
 
-      {playlists === null && <Loading />}
+      {filteredPlaylists === undefined && <Loading />}
 
       <div className="flex flex-col gap-4">
         {filteredPlaylists?.map((playlist) => (

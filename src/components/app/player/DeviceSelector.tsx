@@ -1,7 +1,7 @@
 import MutedText from "@/components/MutedText";
 import useSpotifyData from "@/lib/hooks/useSpotifyData";
-import { Loading, Modal } from "@geist-ui/core";
-import { Speaker } from "@geist-ui/icons";
+import { Badge, Loading, Modal } from "@geist-ui/core";
+import { AlertTriangle, Speaker } from "@geist-ui/icons";
 import React, { useEffect } from "react";
 import { usePlayerState } from "../../../lib/player/playerState";
 
@@ -23,13 +23,25 @@ function DeviceSelector() {
     setTimeout(() => setHighRefreshRate(false), 5000);
   }, []);
 
+  const hasActiveDevice = devices?.some((device) => device.is_active);
+
   return (
     <>
       <button
         className="flex items-center rounded-full bg-white hover:bg-zinc-50 duration-200 transition-all p-2"
         onClick={() => setIsSelectorOpen(true)}
+        title={
+          hasActiveDevice
+            ? "Change Spotify Connect device"
+            : "⚠️ No device selected"
+        }
       >
-        <Speaker size={20} strokeWidth={2} />
+        <Badge.Anchor>
+          <Badge type="error" scale={0.5}>
+            <AlertTriangle size={10} strokeWidth={3} />
+          </Badge>
+          <Speaker size={20} strokeWidth={2} />
+        </Badge.Anchor>
       </button>
 
       <Modal visible={isSelectorOpen} onClose={() => setIsSelectorOpen(false)}>

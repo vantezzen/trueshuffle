@@ -33,6 +33,7 @@ export default function useSpotifyData<ReturnType, ResponseDataType>(
   const setNeedsReauth = useAuthGateState((state) => state.setNeedsReauth);
 
   const updateData = () => {
+    setData(undefined);
     callback(spotify)
       .then((data) => {
         setData(
