@@ -18,9 +18,7 @@ function PlaylistSelector() {
   const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
 
   const searchedPlaylists = useSpotifyData(
-    (spotify) => {
-      return spotify.searchPlaylists(debouncedSearchQuery);
-    },
+    (spotify) => spotify.searchPlaylists(debouncedSearchQuery),
     (data) => data.playlists?.items,
     {
       dependencies: [debouncedSearchQuery],

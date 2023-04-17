@@ -2,6 +2,7 @@ import SpotifyWebApi from "spotify-web-api-node";
 import useSessionToken from "./useSessionToken";
 import { useEffect, useState } from "react";
 import { useAuthGateState } from "@/components/auth/authGateState";
+import { fetchSpotifyWithLimitHandling } from "../utils/fetchSpotifyWithLimitHandling";
 
 const spotify = new SpotifyWebApi();
 
@@ -36,7 +37,8 @@ export default function useSpotifyData<ReturnType, ResponseDataType>(
 
   const updateData = () => {
     if (options?.clearOnUpdate) setData(undefined);
-    callback(spotify)
+
+    fetchSpotifyWithLimitHandling(() => callback(spotify))
       .then((data) => {
         setData(
           enhancer ? enhancer(data.body) : (data.body as unknown as ReturnType)

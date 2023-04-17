@@ -1,6 +1,7 @@
 import { usePlayerState } from "@/lib/player/playerState";
 import debugging from "debug";
 import SpotifyWebApi from "spotify-web-api-node";
+import { fetchSpotifyWithLimitHandling } from "../utils/fetchSpotifyWithLimitHandling";
 const debug = debugging("app:player:PlaylistLoader");
 
 export default class PlaylistLoader {
@@ -32,10 +33,12 @@ export default class PlaylistLoader {
     playlist: SpotifyApi.PlaylistObjectSimplified
   ) {
     const offset = i * tracksPerPage;
-    const tracks = await this.spotify.getPlaylistTracks(playlist.id, {
-      offset,
-      limit: tracksPerPage,
-    });
+    const tracks = await fetchSpotifyWithLimitHandling(() =>
+      this.spotify.getPlaylistTracks(playlist.id, {
+        offset,
+        limit: tracksPerPage,
+      })
+    );
 
     const cleanedTracks = this.filterUnplayableTracks(tracks.body.items);
 

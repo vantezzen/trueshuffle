@@ -122,7 +122,17 @@ export default class SpotifyPlayer {
     return spotify;
   }
 
-  setActiveDevice(deviceId: string) {
+  async setActiveDevice(deviceId: string) {
+    const allDevices = await this.spotify.getMyDevices();
+    const activeDevice = allDevices.body.devices.find(
+      (device) => device.is_active
+    );
+
+    if (activeDevice?.id === deviceId) {
+      debug("Device already active");
+      return;
+    }
+
     try {
       this.spotify.transferMyPlayback([deviceId]);
     } catch (error: any) {
@@ -131,6 +141,8 @@ export default class SpotifyPlayer {
         type: "error",
       });
     }
+
+    debug("Active device set to", deviceId);
   }
 
   stopPlayback() {

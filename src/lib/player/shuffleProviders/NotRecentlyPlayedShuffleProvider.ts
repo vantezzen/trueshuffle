@@ -1,9 +1,10 @@
 import SpotifyWebApi from "spotify-web-api-node";
 import { ShuffleProvider } from "./ShuffleProvider";
 import debugging from "debug";
+import { fetchSpotifyWithLimitHandling } from "@/lib/utils/fetchSpotifyWithLimitHandling";
 const debug = debugging("app:player:NotRecentlyPlayedShuffleProvider");
 
-export const RECENTLY_PLAYED_TRACKS_PAGES = 5;
+export const RECENTLY_PLAYED_TRACKS_PAGES = 10;
 
 export type TrackWithAmountPlayed = SpotifyApi.PlaylistTrackObject & {
   amountPlayed: number;
@@ -65,11 +66,11 @@ export default class NotRecentlyPlayedShuffleProvider
   private async loadRecentlyPlayedTracks() {
     let nextPage: number | undefined = undefined;
     for (let page = 0; page < RECENTLY_PLAYED_TRACKS_PAGES; page++) {
-      const recentlyPlayedTracks = await this.spotify.getMyRecentlyPlayedTracks(
-        {
+      const recentlyPlayedTracks = await fetchSpotifyWithLimitHandling(() =>
+        this.spotify.getMyRecentlyPlayedTracks({
           limit: 50,
           after: nextPage,
-        }
+        })
       );
 
       this.recentlyPlayedTracks = [
